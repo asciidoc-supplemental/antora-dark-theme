@@ -6,7 +6,7 @@
 :source-highlighter: highlight.js
 :url-antora: https://antora.org
 :url-antora-ui: https://gitlab.com/antora/antora-ui-default
-:url-demo: https://devcentr.github.io/antora-dark-theme
+:url-demo: https://antora-supplemental.github.io/antora-dark-theme
 
 A dark mode supplemental UI theme for {url-antora}[Antora] documentation sites.
 This theme layers on top of the {url-antora-ui}[Antora Default UI] without requiring modifications to the base UI bundle.

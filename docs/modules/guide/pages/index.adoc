@@ -24,21 +24,21 @@ pnpm::
 +
 [source,bash]
 ----
-pnpm add -D github:the-dev-center/antora-dark-theme
+pnpm add -D antora-dark-theme
 ----
 
 npm::
 +
 [source,bash]
 ----
-npm install --save-dev github:the-dev-center/antora-dark-theme
+npm install --save-dev antora-dark-theme
 ----
 
 yarn::
 +
 [source,bash]
 ----
-yarn add -D github:the-dev-center/antora-dark-theme
+yarn add -D antora-dark-theme
 ----
 ====
 
@@ -104,4 +104,4 @@ Your upvote helps the Antora team prioritize this feature.
 ====
 
 * https://antora.zulipchat.com/#narrow/channel/282400-users/topic/dark.20mode[Dark mode topic] - Community discussion on Antora's Zulip chat
-* https://github.com/the-dev-center/antora-dark-theme[This project] - A working implementation you can use today
+* https://github.com/antora-supplemental/antora-dark-theme[This project] - A working implementation you can use today

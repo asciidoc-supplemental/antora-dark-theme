@@ -165,7 +165,7 @@ echo "Done!"
   "keywords": ["antora", "dark-mode", "theme"],
   "repository": {
     "type": "git",
-    "url": "https://github.com/the-dev-center/antora-dark-theme.git"
+    "url": "https://github.com/antora-supplemental/antora-dark-theme.git"
   }
 }
 ----

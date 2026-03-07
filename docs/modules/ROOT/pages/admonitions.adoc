@@ -72,7 +72,7 @@ Follow these steps in order:
 
 [source,bash]
 ----
-git clone https://github.com/the-dev-center/antora-dark-theme.git
+git clone https://github.com/antora-supplemental/antora-dark-theme.git
 cd antora-dark-theme
 pnpm install
 pnpm build

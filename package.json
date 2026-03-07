@@ -1,6 +1,6 @@
 {
   "name": "antora-dark-theme",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Dark mode supplemental UI theme for Antora documentation sites",
   "keywords": [
     "antora",
@@ -9,10 +9,13 @@
     "documentation",
     "asciidoc"
   ],
-  "homepage": "https://devcentr.github.io/antora-dark-theme",
+  "homepage": "https://antora-supplemental.github.io/antora-dark-theme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/antora-supplemental/antora-dark-theme.git"
+  },
+  "bugs": {
+    "url": "https://github.com/antora-supplemental/antora-dark-theme/issues"
   },
   "license": "MIT",
   "author": "The Dev Center",

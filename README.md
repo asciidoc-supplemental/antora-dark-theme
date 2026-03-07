@@ -33,7 +33,7 @@ ui:
 
 ## Documentation
 
-Full documentation and live demo: **https://devcentr.github.io/antora-dark-theme**
+Full documentation and live demo: [antora-supplemental.github.io/antora-dark-theme](https://antora-supplemental.github.io/antora-dark-theme)
 
 For other installation options, including the pre-built UI bundle and copying `supplemental-ui` directly, see the [official README.adoc](https://github.com/antora-supplemental/antora-dark-theme/README.adoc).
 
