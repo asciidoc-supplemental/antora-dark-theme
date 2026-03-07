@@ -221,9 +221,48 @@ It preserves all formatting
 
 == Listing Block
 
+The following commands install the theme, run the playbook, and start a local server.
+Use the tab that matches your package manager.
+
+[tabs]
+====
+npm::
+`npx` runs from project dependencies or fetches and runs on demand (same command for both Antora and the one-off server).
++
 [listing]
 ----
-$ npm install antora-dark-theme
-$ antora --fetch antora-playbook.yml
+$ npm install --save-dev antora-dark-theme
+$ npx antora --fetch antora-playbook.yml
 $ npx http-server build/site
 ----
+
+pnpm::
+Use `pnpm exec` to run Antora from installed dependencies; use `pnpm dlx` to run http-server once without adding it to the project.
++
+[listing]
+----
+$ pnpm add -D antora-dark-theme
+$ pnpm exec antora --fetch antora-playbook.yml
+$ pnpm dlx http-server build/site
+----
+
+yarn::
+Use `yarn exec` to run Antora from installed dependencies; use `yarn dlx` to run http-server once without adding it to the project.
++
+[listing]
+----
+$ yarn add -D antora-dark-theme
+$ yarn exec antora --fetch antora-playbook.yml
+$ yarn dlx http-server build/site
+----
+
+bun::
+`bunx` runs from project dependencies or fetches and runs on demand (same command for both, like npx).
++
+[listing]
+----
+$ bun add -d antora-dark-theme
+$ bunx antora --fetch antora-playbook.yml
+$ bunx http-server build/site
+----
+====
