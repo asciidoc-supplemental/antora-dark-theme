@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on https://keepachangelog.com/en/1.1.0/[Keep a Changelog],
 and this project adheres to https://semver.org/spec/v2.0.0.html[Semantic Versioning].
 
+== [0.1.5] - 2026-03-26
+
+=== Changed
+
+* VCS provider logos: white-fill SVGs (Simple Icons–style paths), 24×24 layout via `.vcs-logo` / `.vcs-logo-img`, and related `site-extra.css` tweaks
+* `site-dark-mode.js`: resolve UI asset base from `#site-script` or the script URL for local builds; build logo widget helper; append logo to `.navbar-end` when the default Download control is missing; image `onerror` fallback
+* `site-extra.css`: hide the default Download control until scripts run (avoids flash)
+
+=== Documentation
+
+* https://github.com/antora-supplemental/antora-dark-theme/blob/main/docs/modules/guide/pages/vcs-repo-logo.adoc[VCS repo logo guide]: icon sourcing, layout, troubleshooting when the logo does not show locally
+
+=== Packaging
+
+* `package.json`: set `author` for npm registry metadata (next publish)
+
+=== Fixed
+
+* VCS logo could fail to appear when the Antora Download button was absent (custom UI or local preview)
+
+=== Chore
+
+* `README.adoc`: normalize line endings to LF
+
 == [0.1.0] - 2026-01-29
 
 === Added
