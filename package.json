@@ -18,7 +18,7 @@
     "url": "https://github.com/antora-supplemental/antora-dark-theme/issues"
   },
   "license": "MIT",
-  "author": "The Dev Center",
+  "author": "Ryan Johnson (https://github.com/AMDphreak)",
   "files": [
     "supplemental-ui/**/*"
   ],
