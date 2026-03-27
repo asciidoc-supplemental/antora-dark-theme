@@ -1,0 +1,29 @@
+= 2026-01-29 to 2026-03-26 — org migration and follow-up
+
+This note ties the link:2026-01-29%20-%200.1.0%20initial%20release.adoc[0.1.0 (2026-01-29)] and link:2026-03-26%20-%200.1.5%20VCS%20repo%20logo%20and%20npm%20metadata.adoc[0.1.5 (2026-03-26)] release anchors to what happened in git between them.
+
+== Changelog window (filenames / releases)
+
+* *2026-01-29* — first documented release (`0.1.0`) in link:../CHANGELOG.adoc[this changelog].
+* *2026-03-26* — `0.1.5` detailed entry (VCS logo work, npm author, docs, changelog layout).
+
+Treat **everything between those dates** as the period when the repo moved off dev-centr / the-dev-center naming and settled under https://github.com/antora-supplemental[antora-supplemental], plus follow-up theme and docs work—not a single day.
+
+== Filesystem dates
+
+OS file timestamps on a clone (for example `LastWriteTime` on Windows) usually reflect checkout or last save, not when work was authored—so they are not used as history here. The dated **filenames** in `changelog-details/` and **`git log`** dates are.
+
+== Git history (authoring dates from `git log`)
+
+These are representative commits in this repository (not an exhaustive list):
+
+* *2026-02-25* — restore README and update `package.json` for the new organization name.
+* *2026-03-05* — bulk update of org references to `antora-supplemental`.
+* *2026-03-06* — npm package metadata refresh; separate online/offline Antora builds.
+* *2026-03-07* — playbook rename, VCS logo and navbar tweaks.
+
+Later commits through *2026-03-27* land in the same story (VCS assets, changelog split, and this file).
+
+== GitHub org creation (API)
+
+The `antora-supplemental` organization `created_at` timestamp is *2026-03-04T10:55:15Z* (`GET /orgs/antora-supplemental`). That falls *inside* the window above; migration work in-repo started earlier (e.g. February renames) and continued after org creation.

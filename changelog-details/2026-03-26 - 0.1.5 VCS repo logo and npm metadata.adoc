@@ -2,7 +2,7 @@
 
 [NOTE]
 ====
-The link:2026-03-04%20-%20antora-supplemental%20org%20and%20repository%20migration.adoc[2026-03-04 migration note] records org creation (*2026-03-04*) and explains that other commits landed between then and this date without separate dated changelog files.
+The link:2026-01-29%20to%202026-03-26%20-%20org%20migration%20and%20follow-up.adoc[migration note] frames the period from link:2026-01-29%20-%200.1.0%20initial%20release.adoc[0.1.0 (2026-01-29)] through this release using changelog dates and `git log` timestamps—not only the GitHub org `created_at` date.
 ====
 
 == Changed

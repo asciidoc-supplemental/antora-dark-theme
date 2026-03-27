@@ -1,7 +1,0 @@
-= 2026-03-04 — antora-supplemental org and repository migration
-
-The https://github.com/antora-supplemental[antora-supplemental] GitHub organization was created on *2026-03-04* at 10:55 UTC (`created_at` from `GET /orgs/antora-supplemental`).
-
-This repository (and related tooling) moved into that org from the earlier **dev-centr** / **the-dev-center** home. URLs, playbooks, npm metadata, and docs were updated over time to point at `antora-supplemental`; the npm registry still showed old paths until the next publish after `package.json` was corrected.
-
-Between **2026-03-04** and the link:2026-03-26%20-%200.1.5%20VCS%20repo%20logo%20and%20npm%20metadata.adoc[2026-03-26 detailed entry], multiple commits landed (theme tweaks, VCS logo behavior, guides, changelog structure, and housekeeping) that are not each given their own dated changelog file. Treat that span as ongoing migration and hardening work; the **0.1.5** notes on 2026-03-26 bundle the user-visible slice that was documented for that release.
