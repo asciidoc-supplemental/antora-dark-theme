@@ -122,6 +122,21 @@ ui:
   supplemental_files: ./node_modules/antora-dark-theme/supplemental-ui
 ----
 
+=== Method 4: Stacked Overrides (Deep Customization)
+
+To override the dark theme's own overrides with your project-specific customizations, use an array for `supplemental_files`. Paths listed later take precedence.
+
+[source,yaml]
+----
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files:
+    - ./node_modules/antora-dark-theme/supplemental-ui
+    - ./site/src
+----
+
 == Live Demo
 
 See the dark theme in action: {url-demo}[Live Demo]
