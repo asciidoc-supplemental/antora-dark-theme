@@ -49,7 +49,7 @@ html.dark-theme .navbar .navbar-dropdown .navbar-item:hover {
 
 /* Bring dropdown carets closer to the label text (enough gap so caret doesn’t overlap) */
 .navbar .navbar-link {
-  padding-right: 1.5rem;
+  padding-right: 2.25rem;
 }
 
 html.dark-theme .navbar .button,

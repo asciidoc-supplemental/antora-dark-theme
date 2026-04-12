@@ -1,5 +1,5 @@
 name: antora-dark-theme
-title: Antora Dark Theme
+title: "Demo and Docs :: `antora-dark-theme`"
 version: "0.1"
 start_page: guide:index.adoc
 nav:
