@@ -4,52 +4,14 @@
 
 There are several ways to add the dark theme to your Antora project.
 
-== Method 1: Install from GitHub (Recommended)
+== Which installation path should I use?
 
-Install directly from the GitHub repository:
+* **If your project already uses Node/npm/pnpm** (common for Antora sites) — Prefer *Method 1* (npm registry) or *Method 2* (GitHub as a package dependency). Both keep the theme in your package graph and lockfile.
+* **If you want no JavaScript install step** (minimal CI, or a repo without Node) — Use *Method 3* (pre-built `ui-bundle.zip`).
 
-[tabs]
-====
-pnpm::
-+
-[source,bash]
-----
-# Latest version
-pnpm add -D github:antora-supplemental/antora-dark-theme
+== Method 1: npm registry (recommended)
 
-# Specific version
-pnpm add -D github:antora-supplemental/antora-dark-theme#v0.1.0
-----
-
-npm::
-+
-[source,bash]
-----
-npm install --save-dev github:antora-supplemental/antora-dark-theme
-----
-
-yarn::
-+
-[source,bash]
-----
-yarn add -D github:antora-supplemental/antora-dark-theme
-----
-====
-
-Then configure your `antora-playbook.yml`:
-
-[source,yaml]
-----
-ui:
-  bundle:
-    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
-    snapshot: true
-  supplemental_files: ./node_modules/antora-dark-theme/supplemental-ui
-----
-
-== Method 2: Install from npm Registry
-
-If the package is published to npm:
+Install the published package:
 
 [tabs]
 ====
@@ -73,13 +35,88 @@ yarn::
 ----
 yarn add -D antora-dark-theme
 ----
+
+bun::
++
+[source,bash]
+----
+bun add -D antora-dark-theme
+----
 ====
 
-Same playbook configuration as Method 1.
+Then configure your `antora-playbook.yml` with the Antora Default UI bundle and this theme’s supplemental files:
 
-== Method 3: Install from Release Tarball
+[source,yaml]
+----
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files: ./node_modules/antora-dark-theme/supplemental-ui
+----
 
-Download a specific release directly:
+To layer your own supplemental UI after this theme, use an array; later paths win:
+
+[source,yaml]
+----
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files:
+    - ./node_modules/antora-dark-theme/supplemental-ui
+    - ./site/src
+----
+
+== Method 2: Install from GitHub as a package dependency
+
+Useful for an unreleased commit or when you prefer the `github:` protocol:
+
+[tabs]
+====
+pnpm::
++
+[source,bash]
+----
+# Latest default branch
+pnpm add -D github:antora-supplemental/antora-dark-theme
+
+# Specific tag
+pnpm add -D github:antora-supplemental/antora-dark-theme#v0.1.0
+----
+
+npm::
++
+[source,bash]
+----
+npm install --save-dev github:antora-supplemental/antora-dark-theme
+----
+
+yarn::
++
+[source,bash]
+----
+yarn add -D github:antora-supplemental/antora-dark-theme
+----
+====
+
+Use the same `supplemental_files` path as *Method 1* (`./node_modules/antora-dark-theme/supplemental-ui`).
+
+== Method 3: Pre-built UI bundle (no JavaScript toolchain)
+
+Point your playbook at the release artifact (Antora Default UI + dark theme, no `npm install`):
+
+[source,yaml]
+----
+ui:
+  bundle:
+    url: https://github.com/antora-supplemental/antora-dark-theme/releases/latest/download/ui-bundle.zip
+    snapshot: true
+----
+
+== Method 4: Install from release tarball
+
+Download a specific `.tgz` from link:https://github.com/antora-supplemental/antora-dark-theme/releases[GitHub Releases] if you need an exact version without using the npm registry:
 
 [tabs]
 ====
@@ -105,9 +142,11 @@ yarn add -D https://github.com/antora-supplemental/antora-dark-theme/releases/do
 ----
 ====
 
-== Method 4: Copy supplemental-ui Folder
+Then use the same playbook `supplemental_files` path as *Method 1*.
 
-For maximum control, copy the `supplemental-ui` folder directly into your project:
+== Method 5: Copy `supplemental-ui` folder
+
+For maximum control, copy the `supplemental-ui` folder into your project:
 
 . Clone or download the repository
 . Copy the `supplemental-ui` folder to your project root:
@@ -128,7 +167,7 @@ ui:
   supplemental_files: ./supplemental-ui
 ----
 
-== Verify Installation
+== Verify installation
 
 Build your site to verify the installation:
 
@@ -140,6 +179,3 @@ antora antora-playbook.yml
 Open the generated site in a browser.
 You should see a sun/moon toggle button in the navbar.
 Click it to switch between light and dark modes.
-
-
-
