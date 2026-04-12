@@ -11,7 +11,7 @@ Entries below are in **chronological order** by date: prior release, then the **
 == Unreleased
 
 * `package.json` `packageManager`: bump pnpm to **10.33.0** (matches `pnpm/action-setup` in CI, including link:https://github.com/antora-supplemental/antora-build-action[antora-build-action], so the action and Corepack no longer disagree).
-* GitHub Pages deploy workflow: pass `skip_pnpm_setup` and `skip_node_setup` to link:https://github.com/antora-supplemental/antora-build-action[antora-build-action] after the job’s own `pnpm` / `setup-node` steps (no duplicate toolchain setup).
+* GitHub Pages deploy workflow: use link:https://github.com/antora-supplemental/antora-build-action[antora-build-action] **v2** with `setup_pnpm: false`, `setup_node: false`, and `install_dependencies: false` after the job’s own `pnpm` / `setup-node` steps (no duplicate toolchain setup).
 
 == [0.1.6] - 2026-04-12
 
