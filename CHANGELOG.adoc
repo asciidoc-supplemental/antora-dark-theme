@@ -8,6 +8,10 @@ and this project adheres to https://semver.org/spec/v2.0.0.html[Semantic Version
 
 Entries below are in **chronological order** by date: prior release, then the **2026-03-04** org creation and repository move, then the next release.
 
+== Unreleased
+
+* `package.json` `packageManager`: bump pnpm to **10.33.0** (matches `pnpm/action-setup` in CI, including link:https://github.com/antora-supplemental/antora-build-action[antora-build-action], so the action and Corepack no longer disagree).
+
 == [0.1.6] - 2026-04-12
 
 Bugfix: restore default Antora UI spacing between navbar dropdown labels and the caret (`navbar-link` padding no longer overridden).
