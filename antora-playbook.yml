@@ -2,7 +2,7 @@
 # Refreshes remote assets before generating the site. Use for CI and deploy.
 
 site:
-  title: "Demo and Docs :: Antora Dark Theme"
+  title: Antora Dark Theme
   url: https://antora-supplemental.github.io/antora-dark-theme
   start_page: antora-dark-theme:guide:index.adoc
 
