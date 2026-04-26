@@ -118,12 +118,12 @@ html.dark-theme .doc .sect4 {
 }
 
 html.dark-theme .admonitionblock,
-html.dark-theme .exampleblock,
+html.dark-theme .exampleblock:not(.tile),
 html.dark-theme .sidebarblock,
 html.dark-theme .quoteblock,
 html.dark-theme .literalblock,
 html.dark-theme .listingblock,
-html.dark-theme .openblock,
+html.dark-theme .openblock:not(.cards),
 html.dark-theme .tableblock {
   background-color: #25262b;
   border-color: #373a40;
@@ -137,8 +137,8 @@ html.dark-theme .doc .sidebarblock>.content {
   border-color: #373a40;
 }
 
-html.dark-theme .doc .exampleblock,
-html.dark-theme .doc .exampleblock>.content {
+html.dark-theme .doc .exampleblock:not(.tile),
+html.dark-theme .doc .exampleblock:not(.tile) > .content {
   background-color: #1f2125 !important;
   background: #1f2125 !important;
   border-color: #373a40;
@@ -181,8 +181,8 @@ html.dark-theme .doc .listingblock>.content {
   border-color: #373a40;
 }
 
-html.dark-theme .doc .openblock,
-html.dark-theme .doc .openblock>.content {
+html.dark-theme .doc .openblock:not(.cards),
+html.dark-theme .doc .openblock:not(.cards) > .content {
   background-color: transparent !important;
   background: transparent !important;
   border-color: #373a40;
@@ -739,6 +739,20 @@ html.dark-theme .videoblock {
   background-color: transparent;
 }
 
+/* Left nav insets: match toolbar .home-link (margin = toolbar-height / 4) so tree lines up
+   with the breadcrumb row home control on wide layouts (stock default UI is 0.75rem).
+   Skip .nav-tree-only / .ftn-nav-tree-only: horizontal inset is set in site-ftn-docs.css
+   on .nav-panel-menu + vertical-only padding on the nav (avoids cascade conflicts). */
+.nav-menu:not(.nav-tree-only):not(.ftn-nav-tree-only) {
+  padding-left: calc(var(--toolbar-height) / 4);
+  padding-right: 0.75rem;
+}
+
+.nav-panel-explore .components {
+  padding-left: calc(var(--toolbar-height) / 4);
+  padding-right: 0.75rem;
+}
+
 /* Nav tree: one label column for every row (aligns multi-line and leaf vs. folder;
    same idea as default UI nav.css; keeps older core bundles useful until upgraded). */
 .nav .nav-item {
@@ -818,6 +832,15 @@ html.dark-theme .videoblock {
   background: none;
   border: none;
   box-shadow: none;
+}
+
+/* Win over any later dark rules that set display/background on .openblock > .content */
+html.dark-theme .doc .openblock.cards > .content {
+  display: grid !important;
+  background: none !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .doc .openblock.cards .exampleblock.tile {

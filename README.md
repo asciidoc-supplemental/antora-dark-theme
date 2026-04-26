@@ -5,6 +5,19 @@
 
 Dark mode supplemental UI for [Antora](https://antora.org) documentation sites.
 
+## FTN layout stylesheet (optional)
+
+The package also ships `supplemental-ui/css/site-ftn-docs.css`: Source Sans, in-flow header + **doc mast** (breadcrumb / component + version), **ftn-body** + left nav that fills the column, and other layout rules used on [docs.foodtrucknerdz.com](https://docs.foodtrucknerdz.com). It expects the **FTN** Handlebars partials (for example `header` with `ftn-doc-mast`, `body` with `ftn-body`, `main` with `ftn-article`). Load it **after** `site-extra.css` in your `head-meta` (or a merged supplemental directory):
+
+```html
+<link rel="stylesheet" href="{{{uiRootPath}}}/css/site-extra.css">
+<link rel="stylesheet" href="{{{uiRootPath}}}/css/site-ftn-docs.css">
+```
+
+Sites that use only the default Antora layout do not need this file.
+
+**Upstream note:** General-purpose improvements from this layer (for example [antora-ui-default](https://gitlab.com/antora/antora-ui-default) `nav.css` in-flow flex) are landed in the default UI or here as appropriate; the FTN-specific branding stays in `site-ftn-docs.css` or your own supplemental CSS.
+
 ## Quick start
 
 ### Which installation path should I use?
@@ -108,6 +121,10 @@ ui:
 - Persistent preference via localStorage
 - No flash of unstyled content (FOUC)
 - Works with Antora Default UI — no fork required
+
+## Releasing (maintainers)
+
+Do **not** run `pnpm publish` or `npm publish` on your machine. Set `package.json` `version` to the release, commit, then create and push a `vX.Y.Z` tag (e.g. `git tag v1.0.4 && git push origin v1.0.4`). [.github/workflows/release.yml](.github/workflows/release.yml) runs on that tag, creates the [GitHub Release](https://github.com/antora-supplemental/antora-dark-theme/releases) with the `.tgz` and merged `ui-bundle.zip`, and may publish to the npm registry when trusted publishing is configured. Prerelease tags (version contains `-`, e.g. `1.0.0-beta.1`) still get the release assets; see the workflow for the npm step.
 
 ## Documentation
 
