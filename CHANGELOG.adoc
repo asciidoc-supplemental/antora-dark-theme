@@ -8,6 +8,11 @@ and this project adheres to https://semver.org/spec/v2.0.0.html[Semantic Version
 
 Entries below are in **chronological order** by date: prior release, then the **2026-03-04** org creation and repository move, then the next release.
 
+== [1.0.2] - 2026-04-26
+
+* `site-dark-mode.js`: after theme/Download setup, `applyVcsIcons()` sets `img/vcs/*.svg` from link URLs for `a.ftn-edit-inline-link` (and header/repo widgets), so GitHub (and other hosts) are not left on the generic `code.svg` placeholder when the edit link is `https`. `getRepoUrl()` can infer the repo from `a.ftn-edit-inline-link` (with a path) when meta is absent.
+* New optional partial `partials/edit-breadcrumb.hbs`: when included from custom breadcrumbs, **prefers** `page.editUrl` over `page.fileUri` (aligns with Antora `edit-this-page` default); `file://` is used only when there is no web edit URL.
+
 == [1.0.1] - 2026-04-26
 
 * `site-extra.css` (supplemental): on wide viewports, the left column uses a flex column layout so the nav area fills the height beside `main` while remaining in document flow. `.nav-panel-menu` and `.nav-panel-explore .components` use `overflow-y: auto` so a scrollbar appears only when content exceeds the available space.
