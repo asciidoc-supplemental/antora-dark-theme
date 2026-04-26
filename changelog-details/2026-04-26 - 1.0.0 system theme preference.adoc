@@ -1,0 +1,24 @@
+= 1.0.0 — system theme preference (2026-04-26)
+
+== Summary
+
+`supplemental-ui/js/site-dark-mode.js` and the inline script in `supplemental-ui/partials/head-meta.hbs` now use a three-state model:
+
+* `antora-theme-mode` in `localStorage`: `system` | `dark` | `light`
+* Legacy `antora-theme` (`dark` / `light` only) is migrated on first read
+
+Default is *system*: `matchMedia('(prefers-color-scheme: dark)')` drives the `html.dark-theme` class. A `change` listener on that media query:
+
+* If mode is `system`, applies the new scheme immediately.
+* If the user had chosen an explicit `dark` or `light`, the next OS scheme change clears the override and sets mode back to `system`, then applies the new system preference.
+
+This matches the product rule: follow the OS until the user toggles; keep that override until the system color scheme changes again, then re-align with the system.
+
+== Files
+
+* `supplemental-ui/js/site-dark-mode.js` — mode keys, `applyVisibleTheme`, `onSystemThemeChange`, toggle sets explicit `dark`/`light`
+* `supplemental-ui/partials/head-meta.hbs` — inline pre-paint script aligned with the same rules
+
+== Semver
+
+Bumped to **1.0.0** because default storage/behavior changes (no longer persisting the first resolved theme as a fixed `dark`/`light` in `antora-theme` on every load).

@@ -14,6 +14,17 @@ Entries below are in **chronological order** by date: prior release, then the **
 * `package.json` `packageManager`: bump pnpm to **10.33.0** (matches `pnpm/action-setup` in CI, including link:https://github.com/antora-supplemental/antora-build-action[antora-build-action], so the action and Corepack no longer disagree).
 * GitHub Pages deploy workflow: use link:https://github.com/antora-supplemental/antora-build-action[antora-build-action] **v2** with `setup_pnpm: false`, `setup_node: false`, and `install_dependencies: false` after the job’s own `pnpm` / `setup-node` steps (no duplicate toolchain setup).
 
+== [1.0.0] - 2026-04-26
+
+Major release: *system preference* is the default (no more locking the first paint into `localStorage` as an explicit `dark`/`light` that ignored future OS changes).
+
+* *Default mode* is *system*: the site follows `prefers-color-scheme` and **updates** when the OS/browser scheme changes.
+* *User override* (toggle): stores an explicit *dark* or *light* until the *next* `prefers-color-scheme` *change* event, at which point the mode resets to *system* and follows the new system value. (Migrated: legacy `antora-theme` in `localStorage` is read once and written to the new `antora-theme-mode` key.)
+* *First paint* (`head-meta` inline): matches the same `antora-theme-mode` / `antora-theme` and *system* rules to reduce FOUC.
+* *aria-label* on the theme toggle uses “Switch to …” wording.
+
+link:changelog-details/2026-04-26%20-%201.0.0%20system%20theme%20preference.adoc[Detailed changelog — 2026-04-26]
+
 == [0.1.6] - 2026-04-12
 
 Bugfix: restore default Antora UI spacing between navbar dropdown labels and the caret (`navbar-link` padding no longer overridden).
