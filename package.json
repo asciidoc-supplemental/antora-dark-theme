@@ -1,7 +1,7 @@
 {
   "name": "antora-dark-theme",
   "version": "1.0.9",
-  "description": "Dark mode supplemental UI theme for Antora documentation sites",
+  "description": "Dark mode UI for Antora docs. Prefer the GitHub release ui-bundle.zip; npm ships supplemental-ui for advanced overlays.",
   "keywords": [
     "antora",
     "dark-mode",

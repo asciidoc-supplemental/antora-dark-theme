@@ -19,9 +19,11 @@ content:
 
 ui:
   bundle:
-    # Use the pre-built Antora Dark Theme bundle
-    url: https://github.com/antora-supplemental/antora-dark-theme/releases/latest/download/ui-bundle.zip
+    # Recommended: pre-built bundle (Default UI + dark theme). Pin a release tag in CI.
+    url: https://github.com/antora-supplemental/antora-dark-theme/releases/download/v1.0.9/ui-bundle.zip
     snapshot: true
+  # Optional: one directory of your files only (logo, favicon, etc.)
+  # supplemental_files: ./supplemental-ui-overrides
 
 output:
   dir: ./build/site

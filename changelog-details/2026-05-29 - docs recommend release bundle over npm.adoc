@@ -1,0 +1,21 @@
+= 2026-05-29 — Docs: recommend release bundle over npm
+
+== Summary
+
+Installation docs (`README.md`, `README.adoc`, guide module, examples) now treat the GitHub release `ui-bundle.zip` as the recommended default.
+
+== Rationale
+
+Most Antora documentation sites only need a pinned `ui.bundle.url` plus optional small `supplemental_files` overrides (logo, favicon). The npm package remains for projects that version the theme in `package.json` and overlay `supplemental-ui` on the Antora Default UI bundle.
+
+== Doc changes
+
+* Quick start and installation pages lead with Method 1 (release bundle).
+* npm / GitHub package / tarball installs labeled advanced.
+* Warnings against multiple supplemental directories and unnecessary `node_modules` copy/sync workflows.
+* `examples/antora-playbook.yml` pins `v1.0.9` and documents optional `supplemental-ui-overrides`.
+* `package.json` `description` notes bundle-first consumption.
+
+== Consumer note
+
+No change to `supplemental-ui` assets or release artifacts; documentation and examples only.

@@ -16,51 +16,29 @@ It layers on top of the https://gitlab.com/antora/antora-ui-default[Antora Defau
 
 == Quick Start
 
-The fastest way to get started:
+The recommended way to add the theme is the *release UI bundle* (Default UI + dark theme, already merged).
+You do not need to install the npm package for a typical docs site.
 
-[tabs]
-====
-pnpm::
+. Add to your `antora-playbook.yml`:
 +
-[source,bash]
-----
-pnpm add -D antora-dark-theme
-----
-
-npm::
-+
-[source,bash]
-----
-npm install --save-dev antora-dark-theme
-----
-
-yarn::
-+
-[source,bash]
-----
-yarn add -D antora-dark-theme
-----
-====
-
-Then add to your `antora-playbook.yml`:
-
 [source,yaml]
 ----
 ui:
   bundle:
-    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    url: https://github.com/antora-supplemental/antora-dark-theme/releases/download/v1.0.9/ui-bundle.zip
     snapshot: true
-  supplemental_files: ./node_modules/antora-dark-theme/supplemental-ui
 ----
 
-Build your site and you're done!
-
+. Build your site:
++
 [source,bash]
 ----
 antora antora-playbook.yml
 ----
 
-TIP: See xref:installation.adoc[] for all installation methods.
+Custom logo or favicon? Add *one* override directory—see xref:installation.adoc#overrides-on-bundle[overrides on the release bundle].
+
+TIP: See xref:installation.adoc[] for npm overlay, GitHub dependencies, and vendoring `supplemental-ui`.
 
 == Compatibility
 
@@ -75,7 +53,7 @@ TIP: See xref:installation.adoc[] for all installation methods.
 | Any version (HEAD recommended)
 
 | Node.js
-| 18+
+| 18+ (only if you use npm or other Node-based Antora tooling)
 |===
 
 == Browser Support

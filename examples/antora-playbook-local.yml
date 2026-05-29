@@ -1,5 +1,5 @@
-# Local Development Playbook (if you copied supplemental-ui directly)
-# Use this if you copied the supplemental-ui folder into your project
+# Example: release bundle + optional overrides (same as antora-playbook.yml)
+# For vendoring the full theme, copy supplemental-ui/ and use Method 5 in the docs.
 
 site:
   title: My Documentation Site (Local)
@@ -13,10 +13,9 @@ content:
 
 ui:
   bundle:
-    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    url: https://github.com/antora-supplemental/antora-dark-theme/releases/download/v1.0.9/ui-bundle.zip
     snapshot: true
-  # Direct copy approach - supplemental-ui folder in project root
-  supplemental_files: ./supplemental-ui
+  # supplemental_files: ./supplemental-ui-overrides
 
 output:
   dir: ./build/site

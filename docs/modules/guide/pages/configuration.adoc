@@ -7,15 +7,39 @@ This page covers the configuration options available.
 
 == Playbook Configuration
 
-The only required configuration is adding the supplemental files to your `antora-playbook.yml`:
+Most sites use the *release UI bundle* (no npm install):
 
 [source,yaml]
 ----
 ui:
   bundle:
-    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    url: https://github.com/antora-supplemental/antora-dark-theme/releases/download/v1.0.9/ui-bundle.zip
     snapshot: true
-  supplemental_files: ./node_modules/antora-dark-theme/supplemental-ui
+----
+
+Optional branding (one supplemental directory on top of the bundle):
+
+[source,yaml]
+----
+  supplemental_files: ./supplemental-ui-overrides
+----
+
+Advanced: npm overlay on the Antora Default UI bundle—see xref:installation.adoc#override-theme[Adding your own supplemental UI on top of npm].
+
+[[virtual-supplemental-files]]
+== Virtual supplemental files
+
+When you only need one or two files (not a full supplemental directory), use Antora's virtual `supplemental_files` entries with `path` and `contents`:
+
+[source,yaml]
+----
+ui:
+  bundle:
+    url: https://github.com/antora-supplemental/antora-dark-theme/releases/download/v1.0.9/ui-bundle.zip
+    snapshot: true
+  supplemental_files:
+    - path: img/logo.svg
+      contents: ./branding/logo.svg
 ----
 
 == Default Behavior

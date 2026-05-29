@@ -3,15 +3,78 @@
 :description: How to install the Antora Dark Theme in your documentation project.
 
 There are several ways to add the dark theme to your Antora project.
+For most sites, use the *release UI bundle*—not the npm package.
 
 == Which installation path should I use?
 
-* **If your project already uses Node/npm/pnpm** (common for Antora sites) — Prefer *Method 1* (npm registry) or *Method 2* (GitHub as a package dependency). Both keep the theme in your package graph and lockfile. For custom supplemental UI on top of this theme, merge into a single directory or use virtual files (see <<override-theme>>).
-* **If you want no JavaScript install step** (minimal CI, or a repo without Node) — Use *Method 3* (pre-built `ui-bundle.zip`).
+[cols="2,3", options="header"]
+|===
+| Goal | Method
 
-== Method 1: npm registry (recommended)
+| Ship dark docs with minimal setup (recommended)
+| *Method 1* — pre-built `ui-bundle.zip`
 
-Install the published package:
+| Custom logo, favicon, or a few supplemental files
+| *Method 1* + one `supplemental_files` directory (<<overrides-on-bundle>>)
+
+| Theme version in `package.json` and many custom partials on Default UI
+| *Method 2* — npm (or GitHub) supplemental overlay
+
+| Fork or maintain your own copy of theme assets
+| *Method 5* — vendor `supplemental-ui`
+|===
+
+IMPORTANT: Antora accepts *one* supplemental directory *or* a virtual-file array—not a YAML list of multiple directories. Do not point `supplemental_files` at both `node_modules/antora-dark-theme/...` and another folder; merge overrides into a single path or use the release bundle plus a small override directory.
+
+The https://www.npmjs.com/package/antora-dark-theme[npm package] publishes the same `supplemental-ui` tree for Method 2 and for theme development. It is not required when you consume the release bundle.
+
+== Method 1: Pre-built UI bundle (recommended)
+
+Each https://github.com/antora-supplemental/antora-dark-theme/releases[GitHub Release] ships `ui-bundle.zip`: Antora Default UI plus this theme, ready for your playbook.
+
+. Configure `antora-playbook.yml`:
++
+[source,yaml]
+----
+ui:
+  bundle:
+    # Pin a version for reproducible CI
+    url: https://github.com/antora-supplemental/antora-dark-theme/releases/download/v1.0.9/ui-bundle.zip
+    snapshot: true
+----
+
+. Build:
++
+[source,bash]
+----
+antora antora-playbook.yml
+----
+
+You only need `antora` (or your existing docs toolchain)—not `npm install antora-dark-theme`.
+
+TIP: Prefer `releases/download/vX.Y.Z/ui-bundle.zip` over `releases/latest/...` in CI so builds stay reproducible.
+
+[[overrides-on-bundle]]
+=== Overrides on the release bundle
+
+Keep branding or small UI tweaks in *one* directory (for example `supplemental-ui-overrides/` with only `img/logo.svg`):
+
+[source,yaml]
+----
+ui:
+  bundle:
+    url: https://github.com/antora-supplemental/antora-dark-theme/releases/download/v1.0.9/ui-bundle.zip
+    snapshot: true
+  supplemental_files: ./supplemental-ui-overrides
+----
+
+Antora overlays those files onto the bundle. You do not need to copy the full theme from npm.
+
+See also: xref:configuration.adoc#virtual-supplemental-files[virtual supplemental files] for single-file entries.
+
+== Method 2: npm registry (advanced)
+
+Install when the theme must appear in your Node lockfile and you overlay `supplemental-ui` on the *Antora Default UI* zip (not the pre-built theme bundle).
 
 [tabs]
 ====
@@ -44,8 +107,6 @@ bun add -D antora-dark-theme
 ----
 ====
 
-Then configure your `antora-playbook.yml` with the Antora Default UI bundle and this theme’s supplemental files:
-
 [source,yaml]
 ----
 ui:
@@ -56,12 +117,12 @@ ui:
 ----
 
 [[override-theme]]
-=== Adding your own supplemental UI on top of this theme
+=== Adding your own supplemental UI on top of npm
 
 Antora’s `ui.supplemental_files` accepts *either* a single filesystem directory *or* an array of https://docs.antora.org/antora/latest/playbook/ui-supplemental-files[virtual files] (`path` + `contents`).
 You cannot list multiple directories in the YAML array.
 
-*Merged directory (recommended):* Copy `node_modules/antora-dark-theme/supplemental-ui` into your project (for example `supplemental-ui/`), merge your `partials/`, `css/`, and other assets, then set `supplemental_files` to that *one* path:
+*Merged directory:* Copy `node_modules/antora-dark-theme/supplemental-ui` into your project (for example `supplemental-ui/`), merge your `partials/`, `css/`, and other assets, then set `supplemental_files` to that *one* path:
 
 [source,yaml]
 ----
@@ -72,9 +133,9 @@ ui:
   supplemental_files: ./supplemental-ui
 ----
 
-*Pre-built theme bundle + virtual files:* If you use the release `ui-bundle.zip`, the theme is already in the bundle; add only virtual `supplemental_files` entries for extra assets (see the Antora docs linked above).
+Prefer *Method 1* (release bundle) plus a small override directory unless you have a specific reason to stay on Default UI + npm supplemental.
 
-== Method 2: Install from GitHub as a package dependency
+== Method 3: Install from GitHub as a package dependency
 
 Useful for an unreleased commit or when you prefer the `github:` protocol:
 
@@ -84,11 +145,10 @@ pnpm::
 +
 [source,bash]
 ----
-# Latest default branch
 pnpm add -D github:antora-supplemental/antora-dark-theme
 
 # Specific tag
-pnpm add -D github:antora-supplemental/antora-dark-theme#v0.1.0
+pnpm add -D github:antora-supplemental/antora-dark-theme#v1.0.9
 ----
 
 npm::
@@ -106,19 +166,7 @@ yarn add -D github:antora-supplemental/antora-dark-theme
 ----
 ====
 
-Use the same `supplemental_files` path as *Method 1* (`./node_modules/antora-dark-theme/supplemental-ui`).
-
-== Method 3: Pre-built UI bundle (no JavaScript toolchain)
-
-Point your playbook at the release artifact (Antora Default UI + dark theme, no `npm install`):
-
-[source,yaml]
-----
-ui:
-  bundle:
-    url: https://github.com/antora-supplemental/antora-dark-theme/releases/latest/download/ui-bundle.zip
-    snapshot: true
-----
+Use the same playbook `supplemental_files` path as *Method 2* (`./node_modules/antora-dark-theme/supplemental-ui`) with the Default UI bundle URL.
 
 == Method 4: Install from release tarball
 
@@ -130,25 +178,18 @@ pnpm::
 +
 [source,bash]
 ----
-pnpm add -D https://github.com/antora-supplemental/antora-dark-theme/releases/download/v0.1.0/antora-dark-theme-0.1.0.tgz
+pnpm add -D https://github.com/antora-supplemental/antora-dark-theme/releases/download/v1.0.9/antora-dark-theme-1.0.9.tgz
 ----
 
 npm::
 +
 [source,bash]
 ----
-npm install --save-dev https://github.com/antora-supplemental/antora-dark-theme/releases/download/v0.1.0/antora-dark-theme-0.1.0.tgz
-----
-
-yarn::
-+
-[source,bash]
-----
-yarn add -D https://github.com/antora-supplemental/antora-dark-theme/releases/download/v0.1.0/antora-dark-theme-0.1.0.tgz
+npm install --save-dev https://github.com/antora-supplemental/antora-dark-theme/releases/download/v1.0.9/antora-dark-theme-1.0.9.tgz
 ----
 ====
 
-Then use the same playbook `supplemental_files` path as *Method 1*.
+Then use the same playbook `supplemental_files` path as *Method 2*.
 
 == Method 5: Copy `supplemental-ui` folder
 
