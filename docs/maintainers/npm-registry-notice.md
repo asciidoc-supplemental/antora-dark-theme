@@ -1,40 +1,59 @@
-# npm: deprecate CLI vs final patch publish
+# npm: web deprecate + final patch publish (use both)
 
-## `npm deprecate` (registry metadata only)
+## Already deprecated on npmjs.com?
 
-```bash
-npm deprecate antora-dark-theme@* "Your message here"
+You cannot “double-deprecate.” Running `npm deprecate` again (CLI) or using the website **replaces** the message on the versions you target—it does not stack.
+
+| Action | Updates banner message? | Updates README tab? |
+|--------|-------------------------|-------------------|
+| npm website **Deprecate package** | Yes (registry metadata) | No |
+| `npm deprecate pkg@* "new text"` | Yes (overwrites previous message) | No |
+| `npm publish` patch with new `README.md` | No (unless `deprecated` in tarball) | **Yes** |
+
+**Why both:** npm’s deprecation **banner** is a separate UI layer and often has poor contrast in npm’s dark theme. The **README** is normal Markdown and stays readable. Publish `1.0.10` so the README tab shows the formal notice; keep or refresh the registry banner with a **short** CLI message that points to the README.
+
+## Recommended sequence (after web deprecate)
+
+### 1. Publish final patch (README fix)
+
+```powershell
+cd Z:\code\github.com\antora-supplemental\antora-dark-theme
+# In package.json: remove "private": true (restore after)
+npm publish --access public
+# Restore "private": true in git
 ```
 
-| Where | What users see |
-|-------|----------------|
-| **npmjs package page** | Yes — a **deprecation banner** on the package (and per-version pages if you deprecated specific versions). Your message text is shown there. |
-| **`npm install`** | Yes — `npm WARN deprecated` with your message in the terminal. |
-| **README on npmjs** | **No change** — still the README from the last *published tarball*. |
+Version in git: **1.0.10** (includes `deprecated` in `package.json` + `README.md`).
 
-Deprecating the **entire** package can also reduce search visibility on npmjs (per npm docs).
+### 2. Short banner message (CLI — overwrites web text)
 
-Does not upload new files. No git tag required.
-
-## Final patch `npm publish` (what we use for README)
-
-Publishes a new version whose **README.md** becomes the main tab on npmjs.
-
-| Where | What users see |
-|-------|----------------|
-| **npmjs package page** | Updated **README** (our formal DEPRECATED notice). |
-| **`npm install`** | Warning if `deprecated` is set in the published `package.json` (included in tarball). |
-| **Banner** | Use **both**: publish the patch, then `npm deprecate` older versions if you want every version line to show the banner. |
-
-## Recommended one-time sequence
-
-1. Bump patch in `package.json`, remove `"private": true` temporarily.
-2. `npm publish --access public` (from package root; `files` controls tarball contents).
-3. Restore `"private": true` in git; commit version bump; push; tag `vX.Y.Z` for GitHub `ui-bundle.zip` if needed.
-4. Optional: `npm deprecate antora-dark-theme@"<1.0.10" "message"` so older versions also show the banner.
-
-Scoped package:
+Use one line so the npm banner stays readable in dark mode:
 
 ```bash
-npm publish --access public   # in @amdphreak/architexture-theme-antora
+npm deprecate antora-dark-theme@* "RETIRED — Do not install. Open README tab or use GitHub ui-bundle.zip (see releases)."
 ```
+
+To target only old tarballs and leave the banner logic on latest:
+
+```bash
+npm deprecate antora-dark-theme@"<1.0.10" "RETIRED — use ui-bundle.zip; see v1.0.10 README on npm or GitHub releases."
+```
+
+### 3. Optional: undeprecate then re-deprecate
+
+If the website left the package in a bad state, set message to empty then set again:
+
+```bash
+npm deprecate antora-dark-theme@* ""
+npm deprecate antora-dark-theme@* "RETIRED — Do not install. See README on this package page."
+```
+
+## `npm deprecate` alone (what you did on the web)
+
+- Shows a **banner** on the package page (when npm’s UI renders it).
+- Prints **`npm WARN deprecated`** on install.
+- Does **not** change the README (npm still shows **1.0.9** install docs until you publish **1.0.10**).
+
+## GitHub `ui-bundle.zip`
+
+Unrelated to npm publish. Tag `v1.0.10` in git when you want a matching GitHub Release asset; release workflow does not publish npm.

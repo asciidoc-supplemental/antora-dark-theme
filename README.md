@@ -1,6 +1,8 @@
-# ⚠️ DEPRECATED — do not install
+# DEPRECATED — do not install
 
 **This npm package is retired.** It will not receive updates. New documentation sites must not add `antora-dark-theme` as a dependency.
+
+If the yellow deprecation banner above this README is hard to read (npm dark theme), **use this README instead** — it is the authoritative migration notice.
 
 ---
 
