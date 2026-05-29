@@ -1,27 +1,23 @@
-= 2026-05-29 — Bundle-first habit; npm deprecated
+= 2026-05-29 — Bundle-only distribution; npm retired
 
 == Summary
 
-Documentation now treats the GitHub release `ui-bundle.zip` as the *better solution* and the install habit to standardize on—not a soft “recommended default.”
+The release `ui-bundle.zip` is the only distribution channel. npm publish was removed from CI; consumer docs point at xref:guide:npm-deprecation.adoc[npm deprecation] for migration and lessons learned.
 
-The npm package is explicitly *deprecated*; npm publishing is planned to end. Discovery should move to the Antora Supplemental docs portal (extensions registry) instead of npmjs.
+== CI
 
-== Consumer guidance
+* `.github/workflows/release.yml` — no `pnpm pack`, no `antora-dark-theme-*.tgz` on GitHub Releases, no `npm publish`, no `id-token` / `environment: npm`.
 
-* New sites: pinned `ui.bundle.url` to `releases/download/vX.Y.Z/ui-bundle.zip` only.
-* Existing npm consumers: xref in guide to `npm-deprecation.adoc` (migrate, remove dependency, delete sync-from-`node_modules` scripts).
-* Overrides: one `supplemental-ui-overrides/` (or virtual files)—never stack multiple supplemental directories.
+== Documentation
 
-== Package metadata
+* `npm-deprecation.adoc` — status, migration, lessons learned, archived former install commands.
+* `README.md`, `README.adoc`, `installation.adoc`, `index.adoc`, `configuration.adoc` — bundle-only; link to deprecation page instead of inline npm sections.
+* `code-blocks.adoc` demo listing — `antora` CLI only, not `antora-dark-theme` npm install.
 
-`package.json` includes npm’s `deprecated` message pointing at the bundle URL and https://antora-supplemental.github.io/docs/[Supplemental docs portal].
+== package.json
 
-== Maintainer follow-up
+* `"private": true` — prevents accidental registry publish; Antora demo build still uses `pnpm` in this repo.
 
-* Stop advertising npm in README / installation.
-* Remove npm publish from `.github/workflows/release.yml` once downstream migration is acceptable.
-* Register the theme in `antora-extensions-registry` (via Supplemental docs) with bundle URL, not `npm install`.
+== Registry
 
-== Not in this change
-
-No removal of npm publish from CI yet; no registry unpublish—policy and docs only.
+Maintainers deprecate or unpublish `antora-dark-theme` on npmjs separately. Catalog entry belongs on Antora Supplemental docs / extensions registry with the bundle URL.

@@ -7,7 +7,7 @@ This page covers the configuration options available.
 
 == Playbook Configuration
 
-Sites should use the *release UI bundle* only (npm is deprecated):
+Sites use the *release UI bundle* only:
 
 [source,yaml]
 ----
@@ -24,7 +24,7 @@ Optional branding (one supplemental directory on top of the bundle):
   supplemental_files: ./supplemental-ui-overrides
 ----
 
-Legacy npm overlay—deprecated; see xref:npm-deprecation.adoc[npm deprecation].
+Former npm installs: xref:npm-deprecation.adoc[npm deprecation].
 
 [[virtual-supplemental-files]]
 == Virtual supplemental files

@@ -1,19 +1,17 @@
 = Installation
 :navtitle: Installation
-:description: Install Antora Dark Theme using the release UI bundle—the correct habit.
+:description: Install Antora Dark Theme using the release UI bundle.
 
-== The better solution: release UI bundle
+== Release UI bundle
 
-**Use the GitHub release `ui-bundle.zip`.** That is the habit this project is built around: one pinned `ui.bundle.url`, Antora Default UI and dark theme already merged, no theme entry in `package.json`, no copying from `node_modules`.
+**Use `ui-bundle.zip` from GitHub Releases.** One pinned `ui.bundle.url`; Default UI and this theme are already merged.
 
-Find releases and catalog entries on:
+* link:https://github.com/antora-supplemental/antora-dark-theme/releases[GitHub Releases]
+* link:https://antora-supplemental.github.io/docs/[Antora Supplemental docs portal] (extensions registry)
 
-* link:https://github.com/antora-supplemental/antora-dark-theme/releases[GitHub Releases] (`ui-bundle.zip`)
-* link:https://antora-supplemental.github.io/docs/[Antora Supplemental docs portal] (extensions registry and related projects)
+The npm package is deprecated and unpublished—see xref:npm-deprecation.adoc[npm deprecation (lessons learned & migration)] if you still have it in a lockfile.
 
-**Do not** discover or install this theme via https://www.npmjs.com/package/antora-dark-theme[npm]. The npm package is deprecated; publishing will end. See xref:npm-deprecation.adoc[npm deprecation].
-
-== Install (bundle)
+== Steps
 
 . Configure `antora-playbook.yml`:
 +
@@ -39,58 +37,18 @@ ui:
 antora antora-playbook.yml
 ----
 
-Pin `releases/download/vX.Y.Z/ui-bundle.zip` in CI. Avoid `releases/latest/...` unless you accept floating updates.
+Pin `releases/download/vX.Y.Z/ui-bundle.zip` in CI.
 
 [[overrides-on-bundle]]
-=== Overrides on the bundle
+=== Overrides
 
-Keep `img/logo.svg`, favicons, or a handful of partials in a single directory (for example `supplemental-ui-overrides/`).
-Antora overlays it on the bundle—you do not copy the full theme from npm or maintain sync scripts.
-
-For single-file overrides without a directory, see xref:configuration.adoc#virtual-supplemental-files[virtual supplemental files].
-
-== Legacy: npm and package protocols (deprecated)
-
-WARNING: The following paths exist only for projects that have not migrated. **Do not use them on new sites.**
-
-=== npm registry
-
-[source,bash]
-----
-# Do not run this on new projects
-pnpm add -D antora-dark-theme
-----
-
-[source,yaml]
-----
-ui:
-  bundle:
-    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
-    snapshot: true
-  supplemental_files: ./node_modules/antora-dark-theme/supplemental-ui
-----
-
-xref:npm-deprecation.adoc[Remove npm and switch to the release bundle].
-
-[[override-theme]]
-=== npm + merged supplemental directory
-
-If you are still on npm and need custom partials, use *one* merged `supplemental-ui/` directory in git—not npm plus a second supplemental path.
-
-=== GitHub / tarball package dependency
-
-Same deprecated overlay model as npm; prefer the release `ui-bundle.zip` instead of `github:antora-supplemental/antora-dark-theme` or release `.tgz` in `package.json`.
+Logo, favicon, or a few partials in a single directory (for example `supplemental-ui-overrides/`).
+See xref:configuration.adoc#virtual-supplemental-files[virtual supplemental files] for single-file entries.
 
 == Vendor `supplemental-ui` (forks)
 
-For a maintained fork, copy `supplemental-ui/` from this repository into version control and point `supplemental_files` at it with the Default UI bundle.
-That is source control—not npm.
+Copy `supplemental-ui/` from this repository into git for a maintained fork; use the Default UI bundle plus `supplemental_files: ./supplemental-ui`.
 
-== Verify installation
+== Verify
 
-[source,bash]
-----
-antora antora-playbook.yml
-----
-
-Open the site: sun/moon toggle in the navbar, dark mode persists across pages.
+Open the built site and use the sun/moon navbar toggle; preference should persist across pages.

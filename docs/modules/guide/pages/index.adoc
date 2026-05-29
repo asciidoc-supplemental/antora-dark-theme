@@ -2,52 +2,28 @@
 :navtitle: Getting Started
 :description: Quick introduction to the Antora Dark Theme supplemental UI.
 
-Antora Dark Theme adds dark mode to your https://antora.org[Antora] documentation sites.
+Antora Dark Theme adds dark mode to https://antora.org[Antora] documentation sites.
 
-== The habit you should adopt
+== Install habit
 
-**Use the GitHub release `ui-bundle.zip`.** That is the better solution—not npm, not sync scripts from `node_modules`, not stacked supplemental directories.
+Pin the GitHub release `ui-bundle.zip` in your playbook—see xref:installation.adoc[Installation].
 
-[source,yaml]
-----
-ui:
-  bundle:
-    url: https://github.com/antora-supplemental/antora-dark-theme/releases/download/v1.0.9/ui-bundle.zip
-    snapshot: true
-----
+Catalog: link:https://antora-supplemental.github.io/docs/[Antora Supplemental docs portal].
 
-Catalog and discovery: link:https://antora-supplemental.github.io/docs/[Antora Supplemental docs portal].
-
-The https://www.npmjs.com/package/antora-dark-theme[npm package] is deprecated and will be unpublished. xref:npm-deprecation.adoc[Migrate off npm] if you still depend on it.
+If you previously used npm: xref:npm-deprecation.adoc[npm deprecation].
 
 == Features
 
-* *Dark mode toggle* - Sun/moon control in the navbar
-* *System preference* - Follows OS dark mode when you have not chosen a fixed theme
-* *Persistent preference* - Stored in `localStorage`
-* *No FOUC* - Dark class applied before paint
-* *Non-invasive* - Release bundle includes Default UI + theme; no UI fork required
-* *Broad styling* - Navbar, nav panels, content, code, tables, admonitions, footer
+* Dark mode toggle, system preference, `localStorage` persistence, no FOUC
+* Release bundle includes Default UI + theme (no UI fork)
+* Navbar, nav, content, code, tables, admonitions, footer styling
 
 == Next steps
 
-* xref:installation.adoc[Installation] — bundle URL, overrides, legacy paths
-* xref:npm-deprecation.adoc[npm deprecation] — policy and migration
-* xref:configuration.adoc[Configuration] — virtual supplemental files, behavior
+* xref:installation.adoc[Installation]
+* xref:npm-deprecation.adoc[npm deprecation]
+* xref:configuration.adoc[Configuration]
 
-== Compatibility
+== Help native dark mode in Antora
 
-[cols="1,2", options="header"]
-|===
-| Component | Version
-
-| Antora
-| 3.x
-
-| Node.js
-| Only for running Antora CLI—not for installing this theme
-|===
-
-== Help Get Dark Mode into Antora
-
-https://gitlab.com/antora/antora-ui-default/-/issues/216[icon:thumbs-up[] Feature Request: Dark Mode #216] — upvote for native support in Default UI.
+https://gitlab.com/antora/antora-ui-default/-/issues/216[icon:thumbs-up[] Dark Mode #216]

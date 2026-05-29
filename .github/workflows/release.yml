@@ -7,12 +7,10 @@ on:
 
 permissions:
   contents: write
-  id-token: write # Required for npm trusted publishing (OIDC)
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    environment: npm # Must match the environment configured in npm trusted publisher
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,18 +38,11 @@ jobs:
             exit 1
           fi
 
-      - name: Create tarball
-        run: pnpm pack
-
       - name: Generate changelog for release
         id: changelog
         run: |
-          # Extract version from tag
           VERSION=${GITHUB_REF#refs/tags/v}
-
-          # Try to extract changelog section for this version, or use default message
           if [ -f "CHANGELOG.adoc" ]; then
-            # Headings are "== [X.Y.Z] - date"; extract body until the next "== [" section
             NOTES=$(awk -v v="$VERSION" '
               $0 ~ "^== \\[" v "\\]" {flag=1; next}
               flag && /^== \[/ {exit}
@@ -62,19 +53,14 @@ jobs:
           else
             NOTES="Release v$VERSION"
           fi
-
-          # Write to file to handle multiline
           echo "$NOTES" > release_notes.md
 
       - name: Build Antora UI Bundle
         run: |
-          # Fetch the default UI bundle to use as a base
           curl -L -o default-ui-bundle.zip https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
-          # Create a temporary directory to merge files
           mkdir -p build/ui-bundle
           unzip default-ui-bundle.zip -d build/ui-bundle
           cp -r supplemental-ui/* build/ui-bundle/
-          # Create the new bundle
           cd build/ui-bundle
           zip -r ../../ui-bundle.zip .
           cd ../..
@@ -83,15 +69,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           body_path: release_notes.md
-          files: |
-            antora-dark-theme-*.tgz
-            ui-bundle.zip
+          files: ui-bundle.zip
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish to npm (trusted publishing)
-        if: ${{ !contains(github.ref, '-') }}
-        run: |
-          rm -f *.tgz
-          npm publish --access public --provenance

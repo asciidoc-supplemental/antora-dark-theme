@@ -10,10 +10,9 @@
 
 A dark mode UI for {url-antora}[Antora] documentation sites.
 
-IMPORTANT: The *better solution*—and the habit every site should adopt—is the GitHub release `ui-bundle.zip` (Default UI + this theme, pre-merged).
-The https://www.npmjs.com/package/antora-dark-theme[npm package] is *deprecated*; npm publishing will end.
-Discover this theme via link:https://antora-supplemental.github.io/docs/[Antora Supplemental docs] (extensions registry), not npmjs.
-Do not start new projects on `npm install antora-dark-theme`.
+IMPORTANT: Use the GitHub release `ui-bundle.zip` (Default UI + this theme, pre-merged)—the habit every site should adopt.
+The npm package is *deprecated and unpublished*; see xref:npm-deprecation.adoc[npm deprecation (archive & lessons learned)].
+Discover this theme via link:https://antora-supplemental.github.io/docs/[Antora Supplemental docs] (extensions registry).
 
 image:https://img.shields.io/badge/license-MIT-blue.svg[License: MIT]
 image:https://img.shields.io/badge/antora-3.x-purple.svg[Antora 3.x]
@@ -66,98 +65,13 @@ Optional `supplemental_files` is *one* directory of your files (logo, favicon)�
 
 Catalog and org docs: link:https://antora-supplemental.github.io/docs/[antora-supplemental.github.io/docs^].
 
-See xref:npm-deprecation.adoc[npm deprecation] to migrate off the registry package.
-
-=== Which path when (summary)
-
-[cols="2,3", options="header"]
-|===
-| Situation | Do this
-
-| Any new documentation site
-| Release bundle (*above*)
-
-| Logo / favicon / few overrides
-| Release bundle + one override directory
-
-| Existing `npm install antora-dark-theme`
-| xref:npm-deprecation.adoc[Migrate to the bundle]; remove npm
-
-| Theme fork in git
-| Vendor `supplemental-ui/` — not npm
-|===
+Former npm consumers: xref:npm-deprecation.adoc[npm deprecation].
 
 WARNING: Antora accepts *one* supplemental directory *or* virtual files—not multiple directories in YAML.
 
-=== Method 1: Pre-built UI bundle (use this)
-
-Point your Antora playbook at a release `ui-bundle.zip` (Default UI + this theme, already merged).
-Pin a version in CI for reproducible builds.
-
-[source,yaml]
-----
-ui:
-  bundle:
-    url: https://github.com/antora-supplemental/antora-dark-theme/releases/download/v1.0.9/ui-bundle.zip
-    snapshot: true
-  # Optional: one directory of your overrides only (e.g. img/logo.svg)
-  supplemental_files: ./supplemental-ui-overrides
-----
-
-You only need Antora in your toolchain—not `npm install antora-dark-theme`.
-
 See link:examples/antora-playbook.yml[`examples/antora-playbook.yml`].
 
-=== Method 2: npm package (deprecated — do not adopt)
-
-WARNING: Legacy only. npm pollutes the Node graph for a static UI and will be unpublished.
-Migrate to *Method 1*. See xref:npm-deprecation.adoc[npm deprecation].
-
-Existing installs may still reference the package until migration completes:
-
-[tabs]
-====
-npm::
-+
-[source,bash]
-----
-npm install --save-dev antora-dark-theme
-----
-
-pnpm::
-+
-[source,bash]
-----
-pnpm add -D antora-dark-theme
-----
-
-Yarn::
-+
-[source,bash]
-----
-yarn add -D antora-dark-theme
-----
-
-Bun::
-+
-[source,bash]
-----
-bun add -D antora-dark-theme
-----
-====
-
-Then reference the supplemental UI from `node_modules`:
-
-[source,yaml]
-----
-ui:
-  bundle:
-    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
-    snapshot: true
-  supplemental_files: ./node_modules/antora-dark-theme/supplemental-ui
-----
-
-=== Method 3: Custom overrides (valid Antora options)
+=== Custom overrides (valid Antora options)
 
 Antora’s `ui.supplemental_files` accepts *either* a single filesystem directory *or* an array of https://docs.antora.org/antora/latest/playbook/ui-supplemental-files[virtual files] (`path` + `contents`).
 A YAML list of multiple **directories** is not supported—the array form is only for virtual entries.
@@ -173,7 +87,7 @@ ui:
   supplemental_files: ./supplemental-ui-overrides
 ----
 
-*Merged directory (npm or vendored theme):* Copy `supplemental-ui` into your repo, merge your changes, then point the playbook at that *one* folder:
+*Merged directory (vendored fork):* Copy `supplemental-ui` into your repo, merge your changes, then point the playbook at that *one* folder:
 
 [source,yaml]
 ----
@@ -196,9 +110,9 @@ ui:
 *Virtual override of a single UI file:* Each entry must use `path` and `contents` (inline or path to a file on disk).
 If you replace a partial such as `partials/head-meta.hbs`, your file must still load this theme’s CSS and scripts (start from the theme’s partial), or use a merged directory instead.
 
-=== Method 4: Copy `supplemental-ui` into your repo
+=== Vendor `supplemental-ui` in your repo
 
-If you want to **vendor** or heavily customize the dark mode assets, copy the `supplemental-ui` folder into your project (instead of resolving it from npm).
+If you want to **vendor** or heavily customize the dark mode assets, copy the `supplemental-ui` folder into your project from this repository.
 
 . Copy the folder:
 +

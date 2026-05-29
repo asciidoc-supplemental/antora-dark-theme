@@ -10,7 +10,8 @@ Entries below are in **chronological order** by date: prior release, then the **
 
 == [Unreleased]
 
-* *Documentation / distribution policy:* State clearly that the release `ui-bundle.zip` is the better solution and the habit to adopt; deprecate the npm package (planned unpublish); point discovery to the Antora Supplemental docs portal instead of npmjs. New guide page `npm-deprecation.adoc`; `package.json` `deprecated` field for registry warnings.
+* *Distribution:* Remove npm publish from link:.github/workflows/release.yml[release workflow]; GitHub Releases ship `ui-bundle.zip` only. `package.json` marked `private` (repo tooling, not a registry package).
+* *Documentation:* All npm install/migration detail moved to `docs/modules/guide/pages/npm-deprecation.adoc` (lessons learned + archive); other pages link there instead of duplicating npm instructions.
 
 link:changelog-details/2026-05-29%20-%20docs%20recommend%20release%20bundle%20over%20npm.adoc[Detailed notes — 2026-05-29]
 
