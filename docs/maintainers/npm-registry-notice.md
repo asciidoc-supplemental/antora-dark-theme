@@ -1,15 +1,40 @@
-# Refreshing the npm registry README (one-time)
+# npm: deprecate CLI vs final patch publish
 
-The public text on [npmjs.com/package/antora-dark-theme](https://www.npmjs.com/package/antora-dark-theme) comes from `README.md` in the **last published tarball**.
+## `npm deprecate` (registry metadata only)
 
-To update it after editing `README.md` / `deprecated` in `package.json`:
+```bash
+npm deprecate antora-dark-theme@* "Your message here"
+```
 
-1. Temporarily remove `"private": true` from `package.json` (restore after publish).
-2. Bump patch version (e.g. `1.0.10`).
-3. Tag is **not** required for npm-only notice; either:
-   - `npm publish --access public` from a maintainer machine (workflow no longer publishes npm), or
-   - `npm deprecate antora-dark-theme "<deprecated message>"` for install warnings without a new README.
+| Where | What users see |
+|-------|----------------|
+| **npmjs package page** | Yes — a **deprecation banner** on the package (and per-version pages if you deprecated specific versions). Your message text is shown there. |
+| **`npm install`** | Yes — `npm WARN deprecated` with your message in the terminal. |
+| **README on npmjs** | **No change** — still the README from the last *published tarball*. |
 
-Prefer publishing one final patch so the registry README matches `README.md`.
+Deprecating the **entire** package can also reduce search visibility on npmjs (per npm docs).
 
-Then deprecate or unpublish on npm when traffic is zero.
+Does not upload new files. No git tag required.
+
+## Final patch `npm publish` (what we use for README)
+
+Publishes a new version whose **README.md** becomes the main tab on npmjs.
+
+| Where | What users see |
+|-------|----------------|
+| **npmjs package page** | Updated **README** (our formal DEPRECATED notice). |
+| **`npm install`** | Warning if `deprecated` is set in the published `package.json` (included in tarball). |
+| **Banner** | Use **both**: publish the patch, then `npm deprecate` older versions if you want every version line to show the banner. |
+
+## Recommended one-time sequence
+
+1. Bump patch in `package.json`, remove `"private": true` temporarily.
+2. `npm publish --access public` (from package root; `files` controls tarball contents).
+3. Restore `"private": true` in git; commit version bump; push; tag `vX.Y.Z` for GitHub `ui-bundle.zip` if needed.
+4. Optional: `npm deprecate antora-dark-theme@"<1.0.10" "message"` so older versions also show the banner.
+
+Scoped package:
+
+```bash
+npm publish --access public   # in @amdphreak/architexture-theme-antora
+```
