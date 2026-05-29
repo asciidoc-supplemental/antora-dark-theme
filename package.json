@@ -1,7 +1,8 @@
 {
   "name": "antora-dark-theme",
   "version": "1.0.9",
-  "description": "Dark mode UI for Antora docs. Prefer the GitHub release ui-bundle.zip; npm ships supplemental-ui for advanced overlays.",
+  "description": "DEPRECATED on npm — use GitHub release ui-bundle.zip. See README.",
+  "deprecated": "Do not install. Use releases/download/vX.Y.Z/ui-bundle.zip in your Antora playbook. npm publish will end; catalog: https://antora-supplemental.github.io/docs/",
   "keywords": [
     "antora",
     "dark-mode",

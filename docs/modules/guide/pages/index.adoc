@@ -2,25 +2,12 @@
 :navtitle: Getting Started
 :description: Quick introduction to the Antora Dark Theme supplemental UI.
 
-Antora Dark Theme is a supplemental UI that adds dark mode support to your https://antora.org[Antora] documentation sites.
-It layers on top of the https://gitlab.com/antora/antora-ui-default[Antora Default UI] without requiring modifications to the base UI bundle.
+Antora Dark Theme adds dark mode to your https://antora.org[Antora] documentation sites.
 
-== Features
+== The habit you should adopt
 
-* *Dark mode toggle* - A sun/moon icon button in the navbar that switches between light and dark themes
-* *System preference detection* - Automatically applies dark mode if your OS is set to dark mode
-* *Persistent preference* - Remembers your choice via `localStorage`
-* *No FOUC* - Dark mode is applied before page render, preventing Flash of Unstyled Content
-* *Non-invasive* - Works as a supplemental UI overlay; no need to fork or rebuild the Antora default UI bundle
-* *Comprehensive styling* - Covers navbar, navigation panels, content area, code blocks, tables, admonition blocks, footer, and more
+**Use the GitHub release `ui-bundle.zip`.** That is the better solution—not npm, not sync scripts from `node_modules`, not stacked supplemental directories.
 
-== Quick Start
-
-The recommended way to add the theme is the *release UI bundle* (Default UI + dark theme, already merged).
-You do not need to install the npm package for a typical docs site.
-
-. Add to your `antora-playbook.yml`:
-+
 [source,yaml]
 ----
 ui:
@@ -29,16 +16,24 @@ ui:
     snapshot: true
 ----
 
-. Build your site:
-+
-[source,bash]
-----
-antora antora-playbook.yml
-----
+Catalog and discovery: link:https://antora-supplemental.github.io/docs/[Antora Supplemental docs portal].
 
-Custom logo or favicon? Add *one* override directory—see xref:installation.adoc#overrides-on-bundle[overrides on the release bundle].
+The https://www.npmjs.com/package/antora-dark-theme[npm package] is deprecated and will be unpublished. xref:npm-deprecation.adoc[Migrate off npm] if you still depend on it.
 
-TIP: See xref:installation.adoc[] for npm overlay, GitHub dependencies, and vendoring `supplemental-ui`.
+== Features
+
+* *Dark mode toggle* - Sun/moon control in the navbar
+* *System preference* - Follows OS dark mode when you have not chosen a fixed theme
+* *Persistent preference* - Stored in `localStorage`
+* *No FOUC* - Dark class applied before paint
+* *Non-invasive* - Release bundle includes Default UI + theme; no UI fork required
+* *Broad styling* - Navbar, nav panels, content, code, tables, admonitions, footer
+
+== Next steps
+
+* xref:installation.adoc[Installation] — bundle URL, overrides, legacy paths
+* xref:npm-deprecation.adoc[npm deprecation] — policy and migration
+* xref:configuration.adoc[Configuration] — virtual supplemental files, behavior
 
 == Compatibility
 
@@ -49,37 +44,10 @@ TIP: See xref:installation.adoc[] for npm overlay, GitHub dependencies, and vend
 | Antora
 | 3.x
 
-| Antora Default UI
-| Any version (HEAD recommended)
-
 | Node.js
-| 18+ (only if you use npm or other Node-based Antora tooling)
+| Only for running Antora CLI—not for installing this theme
 |===
-
-== Browser Support
-
-This theme supports all modern browsers:
-
-* Chrome/Edge (latest)
-* Firefox (latest)
-* Safari (latest)
-* Opera (latest)
-
-The theme uses standard CSS and JavaScript that works in all browsers supporting `localStorage`, `classList`, and `matchMedia`.
 
 == Help Get Dark Mode into Antora
 
-Dark mode has been a long-requested feature for Antora documentation sites.
-This project provides a working community solution, and we've submitted it for inclusion in the official Antora Default UI.
-
-[IMPORTANT]
-====
-**Want official dark mode support?** Head over to the GitLab issue and give it a thumbs up!
-
-https://gitlab.com/antora/antora-ui-default/-/issues/216[icon:thumbs-up[] Feature Request: Dark Mode #216]
-
-Your upvote helps the Antora team prioritize this feature.
-====
-
-* https://antora.zulipchat.com/#narrow/channel/282400-users/topic/dark.20mode[Dark mode topic] - Community discussion on Antora's Zulip chat
-* https://github.com/antora-supplemental/antora-dark-theme[This project] - A working implementation you can use today
+https://gitlab.com/antora/antora-ui-default/-/issues/216[icon:thumbs-up[] Feature Request: Dark Mode #216] — upvote for native support in Default UI.

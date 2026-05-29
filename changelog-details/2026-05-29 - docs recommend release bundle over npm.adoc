@@ -1,21 +1,27 @@
-= 2026-05-29 — Docs: recommend release bundle over npm
+= 2026-05-29 — Bundle-first habit; npm deprecated
 
 == Summary
 
-Installation docs (`README.md`, `README.adoc`, guide module, examples) now treat the GitHub release `ui-bundle.zip` as the recommended default.
+Documentation now treats the GitHub release `ui-bundle.zip` as the *better solution* and the install habit to standardize on—not a soft “recommended default.”
 
-== Rationale
+The npm package is explicitly *deprecated*; npm publishing is planned to end. Discovery should move to the Antora Supplemental docs portal (extensions registry) instead of npmjs.
 
-Most Antora documentation sites only need a pinned `ui.bundle.url` plus optional small `supplemental_files` overrides (logo, favicon). The npm package remains for projects that version the theme in `package.json` and overlay `supplemental-ui` on the Antora Default UI bundle.
+== Consumer guidance
 
-== Doc changes
+* New sites: pinned `ui.bundle.url` to `releases/download/vX.Y.Z/ui-bundle.zip` only.
+* Existing npm consumers: xref in guide to `npm-deprecation.adoc` (migrate, remove dependency, delete sync-from-`node_modules` scripts).
+* Overrides: one `supplemental-ui-overrides/` (or virtual files)—never stack multiple supplemental directories.
 
-* Quick start and installation pages lead with Method 1 (release bundle).
-* npm / GitHub package / tarball installs labeled advanced.
-* Warnings against multiple supplemental directories and unnecessary `node_modules` copy/sync workflows.
-* `examples/antora-playbook.yml` pins `v1.0.9` and documents optional `supplemental-ui-overrides`.
-* `package.json` `description` notes bundle-first consumption.
+== Package metadata
 
-== Consumer note
+`package.json` includes npm’s `deprecated` message pointing at the bundle URL and https://antora-supplemental.github.io/docs/[Supplemental docs portal].
 
-No change to `supplemental-ui` assets or release artifacts; documentation and examples only.
+== Maintainer follow-up
+
+* Stop advertising npm in README / installation.
+* Remove npm publish from `.github/workflows/release.yml` once downstream migration is acceptable.
+* Register the theme in `antora-extensions-registry` (via Supplemental docs) with bundle URL, not `npm install`.
+
+== Not in this change
+
+No removal of npm publish from CI yet; no registry unpublish—policy and docs only.

@@ -1,0 +1,51 @@
+= npm package deprecation
+:navtitle: npm deprecation
+:page-pagination:
+:page-pagination-prev: installation.adoc
+:page-pagination-next: configuration.adoc
+:description: Why the npm package is legacy and how to migrate to the release UI bundle.
+
+== Policy
+
+The *correct* way to consume Antora Dark Theme is the GitHub release `ui-bundle.zip`—a pinned `ui.bundle.url` in your Antora playbook.
+
+The https://www.npmjs.com/package/antora-dark-theme[npm package] is *deprecated*:
+
+* It does not belong in the npm namespace for a static UI artifact.
+* It encourages invalid Antora setups (multiple supplemental directories, sync-from-`node_modules` scripts).
+* Discovery and versioning belong on link:https://github.com/antora-supplemental/antora-dark-theme/releases[GitHub Releases] and the link:https://antora-supplemental.github.io/docs/[Antora Supplemental docs portal] (extensions registry)—not npmjs.
+
+**npm publishing will end.** Do not add `antora-dark-theme` to new projects. Remove it from existing `package.json` files when you migrate.
+
+== Migrate in three steps
+
+. Remove `antora-dark-theme` from `package.json` / lockfile (`pnpm remove -D antora-dark-theme`, etc.).
+. Set the playbook bundle URL:
++
+[source,yaml]
+----
+ui:
+  bundle:
+    url: https://github.com/antora-supplemental/antora-dark-theme/releases/download/v1.0.9/ui-bundle.zip
+    snapshot: true
+----
++
+. Keep branding in *one* override directory if needed:
++
+[source,yaml]
+----
+  supplemental_files: ./supplemental-ui-overrides
+----
+
+Rebuild. Delete any `prebuild` / `sync:ui` scripts that copied `node_modules/antora-dark-theme/supplemental-ui`.
+
+== If you truly need source files
+
+* *Fork / vendor:* copy `supplemental-ui/` from this repository into git—do not depend on npm for delivery.
+* *Heavy UI fork:* maintain your own supplemental tree on the Default UI bundle; that is advanced and rare.
+
+== For catalog and CI maintainers
+
+List this theme in the Antora extensions registry (via the Supplemental docs site), pointing at the release `ui-bundle.zip` URL—not `npm install`.
+
+When downstreams have migrated, maintainers will drop the npm publish step from the release workflow.

@@ -8,8 +8,12 @@
 :url-antora-ui: https://gitlab.com/antora/antora-ui-default
 :url-demo: https://antora-supplemental.github.io/antora-dark-theme
 
-A dark mode supplemental UI theme for {url-antora}[Antora] documentation sites.
-This theme layers on top of the {url-antora-ui}[Antora Default UI] without requiring modifications to the base UI bundle.
+A dark mode UI for {url-antora}[Antora] documentation sites.
+
+IMPORTANT: The *better solution*—and the habit every site should adopt—is the GitHub release `ui-bundle.zip` (Default UI + this theme, pre-merged).
+The https://www.npmjs.com/package/antora-dark-theme[npm package] is *deprecated*; npm publishing will end.
+Discover this theme via link:https://antora-supplemental.github.io/docs/[Antora Supplemental docs] (extensions registry), not npmjs.
+Do not start new projects on `npm install antora-dark-theme`.
 
 image:https://img.shields.io/badge/license-MIT-blue.svg[License: MIT]
 image:https://img.shields.io/badge/antora-3.x-purple.svg[Antora 3.x]
@@ -42,29 +46,50 @@ Your support helps the Antora team prioritize this feature!
 
 == Quick Start
 
-=== Which installation path should I use?
+Use the release bundle. That is the correct default—not a mild preference.
+
+=== The habit: release `ui-bundle.zip`
+
+Point your playbook at a pinned GitHub Release asset.
+You do not need this project on npm.
+
+[source,yaml]
+----
+ui:
+  bundle:
+    url: https://github.com/antora-supplemental/antora-dark-theme/releases/download/v1.0.9/ui-bundle.zip
+    snapshot: true
+  supplemental_files: ./supplemental-ui-overrides
+----
+
+Optional `supplemental_files` is *one* directory of your files (logo, favicon)—not a second theme install.
+
+Catalog and org docs: link:https://antora-supplemental.github.io/docs/[antora-supplemental.github.io/docs^].
+
+See xref:npm-deprecation.adoc[npm deprecation] to migrate off the registry package.
+
+=== Which path when (summary)
 
 [cols="2,3", options="header"]
 |===
-| Goal | Method
+| Situation | Do this
 
-| Ship dark docs with minimal setup (recommended)
-| *Method 1* — pre-built `ui-bundle.zip`
+| Any new documentation site
+| Release bundle (*above*)
 
-| Custom logo, favicon, or a few supplemental files
-| *Method 1* + one `supplemental_files` directory
+| Logo / favicon / few overrides
+| Release bundle + one override directory
 
-| Theme version in `package.json` and many custom partials on Default UI
-| *Method 2* — npm supplemental overlay
+| Existing `npm install antora-dark-theme`
+| xref:npm-deprecation.adoc[Migrate to the bundle]; remove npm
 
-| Fork or maintain your own copy of theme assets
-| *Method 4* — vendor `supplemental-ui`
+| Theme fork in git
+| Vendor `supplemental-ui/` — not npm
 |===
 
-IMPORTANT: Antora accepts *one* supplemental directory *or* a virtual-file array—not a YAML list of multiple directories.
-The https://www.npmjs.com/package/antora-dark-theme[npm package] publishes the same `supplemental-ui` tree for *Method 2* and for theme development; most documentation sites should prefer the release bundle (*Method 1*).
+WARNING: Antora accepts *one* supplemental directory *or* virtual files—not multiple directories in YAML.
 
-=== Method 1: Pre-built UI bundle (recommended)
+=== Method 1: Pre-built UI bundle (use this)
 
 Point your Antora playbook at a release `ui-bundle.zip` (Default UI + this theme, already merged).
 Pin a version in CI for reproducible builds.
@@ -83,9 +108,12 @@ You only need Antora in your toolchain—not `npm install antora-dark-theme`.
 
 See link:examples/antora-playbook.yml[`examples/antora-playbook.yml`].
 
-=== Method 2: Use as npm dependency (advanced)
+=== Method 2: npm package (deprecated — do not adopt)
 
-Install this theme as a dev dependency so the version is tracked with your project.
+WARNING: Legacy only. npm pollutes the Node graph for a static UI and will be unpublished.
+Migrate to *Method 1*. See xref:npm-deprecation.adoc[npm deprecation].
+
+Existing installs may still reference the package until migration completes:
 
 [tabs]
 ====

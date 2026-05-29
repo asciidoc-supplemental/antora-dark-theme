@@ -7,7 +7,7 @@ This page covers the configuration options available.
 
 == Playbook Configuration
 
-Most sites use the *release UI bundle* (no npm install):
+Sites should use the *release UI bundle* only (npm is deprecated):
 
 [source,yaml]
 ----
@@ -24,7 +24,7 @@ Optional branding (one supplemental directory on top of the bundle):
   supplemental_files: ./supplemental-ui-overrides
 ----
 
-Advanced: npm overlay on the Antora Default UI bundle—see xref:installation.adoc#override-theme[Adding your own supplemental UI on top of npm].
+Legacy npm overlay—deprecated; see xref:npm-deprecation.adoc[npm deprecation].
 
 [[virtual-supplemental-files]]
 == Virtual supplemental files

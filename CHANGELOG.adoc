@@ -10,7 +10,7 @@ Entries below are in **chronological order** by date: prior release, then the **
 
 == [Unreleased]
 
-* *Documentation:* Recommend the GitHub release `ui-bundle.zip` as the default install path; document npm `supplemental-ui` as an advanced overlay on Antora Default UI. Clarify that Antora does not support multiple supplemental directories and that copying from `node_modules` on every build is unnecessary when using the bundle.
+* *Documentation / distribution policy:* State clearly that the release `ui-bundle.zip` is the better solution and the habit to adopt; deprecate the npm package (planned unpublish); point discovery to the Antora Supplemental docs portal instead of npmjs. New guide page `npm-deprecation.adoc`; `package.json` `deprecated` field for registry warnings.
 
 link:changelog-details/2026-05-29%20-%20docs%20recommend%20release%20bundle%20over%20npm.adoc[Detailed notes — 2026-05-29]
 
