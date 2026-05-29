@@ -10,6 +10,7 @@ Entries below are in **chronological order** by date: prior release, then the **
 
 == [Unreleased]
 
+* *npm registry:* Formal deprecation notice in `README.md` (npmjs package page) and `deprecated` field in `package.json`; maintainer steps in `docs/maintainers/npm-registry-notice.md`.
 * *Distribution:* Remove npm publish from link:.github/workflows/release.yml[release workflow]; GitHub Releases ship `ui-bundle.zip` only. `package.json` marked `private` (repo tooling, not a registry package).
 * *Documentation:* All npm install/migration detail moved to `docs/modules/guide/pages/npm-deprecation.adoc` (lessons learned + archive); other pages link there instead of duplicating npm instructions.
 

@@ -1,50 +1,65 @@
-# Antora Dark Theme
+# ⚠️ DEPRECATED — do not install
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Antora 3.x](https://img.shields.io/badge/antora-3.x-purple.svg)](https://antora.org)
+**This npm package is retired.** It will not receive updates. New documentation sites must not add `antora-dark-theme` as a dependency.
 
-Dark mode UI for [Antora](https://antora.org) documentation sites.
+---
 
-## The habit: use the release UI bundle
+## Why you should not use npm for this theme
 
-**The better solution—and the one you should standardize on—is the GitHub release `ui-bundle.zip`.** Antora Default UI plus this theme, already merged. One pinned URL in your playbook—no theme in `package.json`, no `node_modules` copy step.
+Antora Dark Theme is a **static UI bundle** (CSS, Handlebars, JavaScript), not a Node library. Installing it from npm:
 
-Discover releases on [GitHub Releases](https://github.com/antora-supplemental/antora-dark-theme/releases) and the [Antora Supplemental docs portal](https://antora-supplemental.github.io/docs/) (extensions registry).
+- Adds a useless entry to your `package.json` and lockfile
+- Encourages invalid setups (multiple `supplemental_files` directories, copy/sync scripts from `node_modules`)
+- Duplicates what the official release artifact already ships
 
-> **Former npm package:** deprecated and unpublished. Migration and lessons learned: [npm deprecation guide](https://antora-supplemental.github.io/antora-dark-theme/antora-dark-theme/guide/npm-deprecation.html).
+The **correct habit** is a single pinned URL in your Antora playbook—no `npm install`.
+
+---
+
+## What to do instead (correct instructions)
+
+### 1. Use the GitHub release UI bundle
+
+In `antora-playbook.yml`:
 
 ```yaml
 ui:
   bundle:
     url: https://github.com/antora-supplemental/antora-dark-theme/releases/download/v1.0.9/ui-bundle.zip
     snapshot: true
-  supplemental_files: ./supplemental-ui-overrides   # optional: your logo, favicon, …
 ```
 
-See [examples/antora-playbook.yml](examples/antora-playbook.yml). Overrides: one supplemental directory or [virtual files](https://docs.antora.org/antora/latest/playbook/ui-supplemental-files)—never multiple directories.
+Replace `v1.0.9` with the latest tag from [GitHub Releases](https://github.com/antora-supplemental/antora-dark-theme/releases).
 
-## Vendor `supplemental-ui` (forks only)
+### 2. Optional branding (one directory only)
 
-Copy `supplemental-ui/` from this repo for a maintained fork; point `supplemental_files` at it with the Default UI bundle.
+```yaml
+  supplemental_files: ./supplemental-ui-overrides   # e.g. img/logo.svg
+```
 
-## FTN layout stylesheet (optional)
+### 3. Remove this package if it is already installed
 
-Legacy FTN partials may load `supplemental-ui/css/site-ftn-docs.css` after `site-extra.css`. Default layout sites do not need it.
+```bash
+pnpm remove -D antora-dark-theme
+# or: npm uninstall antora-dark-theme
+```
 
-## Features
+Delete any `prebuild` / `sync:ui` scripts that copied `node_modules/antora-dark-theme/supplemental-ui`.
 
-Dark mode toggle, system preference, `localStorage` persistence, no FOUC.
+---
 
-## Releasing (maintainers)
+## Where to find full documentation
 
-Push a `vX.Y.Z` tag; [.github/workflows/release.yml](.github/workflows/release.yml) creates a GitHub Release with **`ui-bundle.zip` only** (no npm).
+| Resource | URL |
+|----------|-----|
+| **Install guide & lessons learned** | [npm deprecation (Antora site)](https://antora-supplemental.github.io/antora-dark-theme/antora-dark-theme/guide/npm-deprecation.html) |
+| **Live demo** | [antora-supplemental.github.io/antora-dark-theme](https://antora-supplemental.github.io/antora-dark-theme) |
+| **Extensions catalog (org hub)** | [antora-supplemental.github.io/docs](https://antora-supplemental.github.io/docs/) |
+| **Source repository** | [github.com/antora-supplemental/antora-dark-theme](https://github.com/antora-supplemental/antora-dark-theme) |
+| **Example playbook** | [examples/antora-playbook.yml](https://github.com/antora-supplemental/antora-dark-theme/blob/main/examples/antora-playbook.yml) |
 
-## Documentation
-
-- [Live demo](https://antora-supplemental.github.io/antora-dark-theme)
-- [Full guide (AsciiDoc)](README.adoc)
-- [npm deprecation & lessons learned](https://antora-supplemental.github.io/antora-dark-theme/antora-dark-theme/guide/npm-deprecation.html)
+---
 
 ## License
 
-[MIT](LICENSE)
+[MIT](https://github.com/antora-supplemental/antora-dark-theme/blob/main/LICENSE)
